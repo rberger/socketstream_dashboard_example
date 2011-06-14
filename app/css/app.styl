@@ -15,6 +15,12 @@ body, html
 #wrapper
   margin 1em
     
+#menu
+  font-size 12pt    
+    
+#newWidget
+  cursor pointer    
+    
 .widget
   float left
   background rgba(255,255,255,0.05)
@@ -27,6 +33,9 @@ body, html
     font-size 10pt
     border-bottom solid 1px rgba(255,255,255,0.5)
     cursor move
+    
+  .title.new
+    cursor pointer
   
   .content
     min-height 15em
@@ -37,4 +46,79 @@ body, html
       color white
       padding-top 40px
       
-      
+form#Widget
+  padding 2em
+  position absolute
+  top 10em
+  background black
+  round 5px
+  box-shadow 0px 0px 5px 5px rgba(255,255,255,0.5)
+  display none
+  
+#tabs
+  padding 1em
+  padding-bottom none
+
+#tabs .tab 
+  float: left
+  padding: 10px
+  font-size: 12pt
+  border: solid 1px #ccc
+  -webkit-border-top-right-radius: 5px
+  -webkit-border-top-left-radius: 5px
+  -moz-border-radius-topright: 5px
+  -moz-border-radius-topleft: 5px
+  border-top-right-radius: 5px
+  border-top-left-radius: 5px
+  background: #eee
+  margin-bottom: -1px
+  cursor: pointer
+  background: -moz-linear-gradient(100% 100% 90deg, #fff, #ccc)
+  background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ccc)) 
+  color: #777
+
+#tabs .tab:hover 
+  background: #fefefe  
+
+#tabs .tab.active 
+  background: white
+  border-bottom: solid 1px white
+
+#tabContents 
+  clear: left
+  float: left
+  border: solid 1px #ccc
+  width: 94em
+  height: 40em
+  -webkit-border-radius: 5px
+  -webkit-border-top-left-radius: 0
+  -moz-border-radius: 5px
+  -moz-border-radius-topleft: 0
+  border-radius: 5px
+  border-top-left-radius: 0
+
+.tabContent 
+  display: none
+
+.tabContent.active 
+  display: block
+
+textarea.ide
+  float: left
+  font-family: 'Droid Sans Mono'
+  font-size: 10pt
+  width: 97%
+  background: rgba(0,0,0,0.8)
+  color: #E4F7BA
+  -moz-box-shadow: inset 3px 3px 5px rgba(0,0,0,0.5)
+  -webkit-box-shadow: inset 3px 3px 5px rgba(0,0,0,0.5)
+  box-shadow: inset 3px 3px 5px rgba(0,0,0,0.5)
+  border: none
+  padding: 1em
+  height: 24em
+  -webkit-border-radius: 5px
+  -moz-border-radius: 5px
+  border-radius: 5px
+  -webkit-border-top-left-radius: 0
+  -moz-border-radius-topleft: 0
+  border-top-left-radius: 0    

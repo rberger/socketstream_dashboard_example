@@ -3,10 +3,39 @@ html(lang: "en")
   head
     != SocketStream
     title SocketSteam demo: Dashboard
+    style(type:'text/css', id:'cssHolder')
   body
     #wrapper
+      #menu
+        #newWidget Add a widget
       #widgets
         .widget.template
           .title
           .content
-            .load
+      form#Widget
+        input(type:"text", name:"title",placeholder:"name of widget")
+        #sandbox
+          #tabs
+            .tab.active#html HTML
+            .tab#css CSS
+            .tab#coffee CoffeeScript
+            .tab#demo Live Demo
+            #tabContents
+              .tabContent.htmlContent.active
+                textarea.ide
+                  <div class="value"></div>
+              .tabContent.cssContent
+                textarea.ide
+                  .value {
+                    font-size: 4em;
+                    text-align: center;
+                    padding-top: 1em;
+                    color: #7EC219;
+                  }
+              .tabContent.coffeeContent
+                textarea.ide
+                  $("#widget_"+data.id).find('.value').text(data.value)
+              .tabContent.demoContent
+                
+        input(type:"submit", value:"Create")
+        

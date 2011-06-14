@@ -96,7 +96,7 @@ class window.SmartTemplate
     instance.html @addItem(data, true).html()
     @options.afterUpdate obj if @options.hasOwnProperty('afterUpdate')
 
-  clear: ->
+  clear: -> 
     for instance in @findWithOrWithoutContainer('.'+@name, true)
       $(instance).remove() unless $(instance).hasClass('template')
 

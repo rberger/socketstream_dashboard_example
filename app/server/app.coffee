@@ -11,8 +11,22 @@ exports.actions =
   # callback with the id referring to the widget
   createWidget: (data, cb) ->
     widget = new Widget data
-    widget.save (err,doc) -> cb if !err then doc._id else false
+    widget.save (err,doc) -> cb if !err then doc else false
   
+  # Get all of the widgets in the DB
   getWidgets: (cb) ->
-    Widget.find {}, {}, {}, (err, docs) -> 
-      cb docs.map (d) -> d.doc
+    Widget.find {}, {}, {}, (err, docs) -> cb docs.map (d) -> d.doc
+    
+  # Update a widget  
+  updateWidget: (data, cb) ->
+    Widget.update {_id: data._id}, data, {}, (err, doc) ->
+      cb if !err then doc else false
+  
+  updateWidgetPositions: (idsAndPositions, cb) ->
+    
+  
+  # Remove a widget
+  deleteWidget: (id, cb) ->
+    Widget.findById id, (err, doc) ->
+      doc.remove (err) ->
+        cb if !err then true else false

@@ -9,6 +9,8 @@ body, html
   width 100%
   font-size 62.5%
   background-color #111
+  background-image url('/images/ios-linen.jpg')
+  background-repeat repeat
   color rgba(255,255,255,0.5)
   font-family 'Helvetica', 'Arial'
   
@@ -16,44 +18,96 @@ body, html
   margin 1em
     
 #menu
-  font-size 12pt    
+  font-size 12pt
+  float left
+  margin 0.5em
+
+#widgets
+  clear both
+  float left
     
 #newWidget
-  cursor pointer    
+  font-weight bold
+  text-shadow 1px 1px 1px rgba(0,0,0,0.5)
+  color white
+  cursor pointer
+  background #669224
+  vertical-gradient(#7ACC00, #628D21)
+  padding 4px 8px
+  round 20px
+  float left
+  border solid 2px white
+  box-shadow 0px 0px 2px 2px rgba(0,0,0,0.3)
     
 .widget
   float left
-  background rgba(255,255,255,0.05)
+  background rgba(0,0,0,0.5)
+  box-shadow inset 0px 3px 14px 1px rgba(0,0,0,0.45)
   width 22em
   margin 1em
-  round 5px
+  round 10px
   
-  .title
-    padding 1em
-    font-size 10pt
-    border-bottom solid 1px rgba(255,255,255,0.5)
-    cursor move
+  .heading
+    position relative
     
-  .title.new
-    cursor pointer
-  
+    .title
+      color white
+      font-weight bold
+      text-shadow 1px 1px 1px black
+      padding 1em
+      font-size 10pt
+      cursor move
+      text-align center
+    
+    .title.new
+      cursor pointer
+ 
+    .button
+      opacity 0
+      -webkit-transition opacity 0.3s linear
+
+    .config
+      opacity 0  
+      position absolute
+      top 8px
+      left 19px
+      width 10px
+      height 10px
+      round 15px
+      background #E9961A
+      vertical-gradient(#E8C61A, #E9961A) 
+      cursor pointer
+
+    .delete  
+      opacity 0 
+      position absolute
+      top 8px
+      left 7px
+      width 10px
+      height 10px
+      round 15px
+      background #A20000
+      vertical-gradient(#FF0000, #A20000)
+      cursor pointer
+      
+
+   .heading:hover .button
+     opacity 1 
+
   .content
     min-height 15em
     text-align center
-  
-    .load
-      font-size 8em
-      color white
-      padding-top 40px
       
 form#Widget
   padding 2em
   position absolute
-  top 10em
-  background black
   round 5px
-  box-shadow 0px 0px 5px 5px rgba(255,255,255,0.5)
   display none
+  background white
+  margin 10%
+  width 70%
+  text-align center
+  padding 2% 5%
   
 #tabs
   padding 1em
@@ -121,4 +175,32 @@ textarea.ide
   border-radius: 5px
   -webkit-border-top-left-radius: 0
   -moz-border-radius-topleft: 0
-  border-top-left-radius: 0    
+  border-top-left-radius: 0
+  
+#overlay
+  position absolute
+  background rgba(0,0,0,0.4)
+  top 0px
+  left 0px
+  right 0px
+  bottom 0px
+  width 100%
+  height 100%
+  
+  #dialog
+    background white
+    round 10px
+    margin 20%
+    width 50%
+    text-align center
+    padding 5%
+    color #333
+    
+    p
+      font-size 12pt
+      margin 1em
+      
+    code
+      font-family: 'Droid Sans Mono'
+      font-size 12pt
+      color #739147 

@@ -42,7 +42,7 @@ exports.init = ->
     $('body').append("<div id='overlay'></div>")
     $('#overlay').hide().fadeIn()
     
-    dialogueTemplate.add {id: 'new', title: 'Create a new Widget'}
+    dialogueTemplate.add {id: 'new', 'dialogue-title': 'Create a new Widget'}
     dialogueTemplate.findInstance('new').find('.dialogue-content').html $($('#dialogs-widgetForm').html())
     
     $('.htmlContent textarea').text '<div class="value">⌛</div>'
@@ -86,7 +86,7 @@ exports.init = ->
                 
           urlToPing = document.location.href + "api/app/simulate?id=#{data._id}#{string.join()}"
           dialogueTemplate.remove 'new'
-          dialogueTemplate.add {id: 'new', title: 'Test your new Widget'}
+          dialogueTemplate.add {id: 'new', 'dialogue-title': 'Test your new Widget'}
           dialogueTemplate.findInstance('new').find('.dialogue-content').html "<p>Ping this url to send data to your widget:</p><code><a href='#{urlToPing}' target='_blank'>#{urlToPing}</a></code>"          
       false
 

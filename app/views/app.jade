@@ -16,38 +16,3 @@ html(lang: "en")
             .button.delete(title:"Delete")
             .button.config(title:"Configure")
           .content
-      form#Widget
-        input(type:"text", name:"title",placeholder:"name of widget")
-        #sandbox
-          #tabs
-            .tab.active#html HTML
-            .tab#css CSS
-            .tab#coffee CoffeeScript
-            .tab#json JSON payload
-            .tab#demo Live Demo
-            #tabContents
-              .tabContent.htmlContent.active
-                textarea.ide
-                  <div class="value">⌛</div>
-              .tabContent.cssContent
-                textarea.ide
-                  .value {
-                    padding-top: 1em;
-                    font-size: 4em;
-                    font-weight: bold;
-                    text-shadow: 1px 1px 1px black;
-                    text-align: center;
-                    padding-top: 1em;
-                    color: #7EC219;
-                  }
-              .tabContent.coffeeContent
-                textarea.ide
-                  # All of your html is scoped to $("#widget_"+data.id) 
-                  $("#widget_"+data.id).find('.value').text(data.value)
-              .tabContent.jsonContent
-                textarea.ide
-                  {value: 0.24}
-              .tabContent.demoContent
-                
-        input(type:"submit", value:"Create")
-        

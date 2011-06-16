@@ -1,15 +1,21 @@
 form#widget
   #theBoringBit
-    label Title
-    input(type='text', name='title')
+    input(type='text', name='title', placeholder='title')
     input(type='submit', value='Create')
   #theCoolBit
     #tabs
-      .tab.active#html HTML
+      .tab#html HTML
       .tab#css CSS
       .tab#coffee CoffeeScript
       .tab#json JSON example
-      .tab#demo Preview
+      .tab#demo.active Preview
     #tabContents
-
-  
+      .tabContent.htmlContent
+        textarea.ide
+      .tabContent.cssContent
+        textarea.ide
+      .tabContent.coffeeContent
+        textarea.ide
+      .tabContent.jsonContent
+        textarea.ide
+      .tabContent.demoContent.active  

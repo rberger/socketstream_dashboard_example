@@ -10,8 +10,14 @@ TODO LIST
 ✔ Fix live preview
   ✔ CSS rendering
   ✔ Sample JSON payload
+
+✖ Fix live preview (css styling on widget preview)
+✖ Fix live preview (render the preview right away)
+
+
+
 ✖ Namespace JSON data based on id
-✖ Display a dialog box showing the url that should be pinged by on the server
+✔ Display a dialog box showing the url that should be pinged by on the server
 ✖ Save Widget positions
 ✖ Edit an existing Widget
 ✖ Monitoring Option (if no data received after a certain interval)

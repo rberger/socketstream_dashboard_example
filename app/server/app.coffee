@@ -21,10 +21,7 @@ exports.actions =
   updateWidget: (data, cb) ->
     Widget.update {_id: data._id}, data, {}, (err, doc) ->
       cb if !err then doc else false
-  
-  updateWidgetPositions: (idsAndPositions, cb) ->
     
-  
   # Remove a widget
   deleteWidget: (id, cb) ->
     Widget.findById id, (err, doc) ->

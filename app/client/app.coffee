@@ -29,7 +29,8 @@ exports.init = ->
   window.widgetTemplate   = new SmartTemplate 'widget', bindDataToCssClasses: true
   window.dialogueTemplate = new SmartTemplate 'dialogue', templateHtml: $($("#dialogs-dialog").html()),  bindDataToCssClasses: true, appendTo: $('body'), afterAdd: (object) ->
     object.hide().fadeIn('slow')
-    object.find('.close').click ->
+    object.draggable {handle:'.dialogue-heading'}
+    object.find('.dialogue-close').click ->
       window.dialogueTemplate.remove object.attr('id')
       $('#overlay').remove()
   
@@ -43,12 +44,16 @@ exports.init = ->
     $('#overlay').hide().fadeIn()
     
     dialogueTemplate.add {id: 'new', 'dialogue-title': 'Create a new Widget'}
-    dialogueTemplate.findInstance('new').find('.dialogue-content').html $($('#dialogs-widgetForm').html())
+    dialogue = dialogueTemplate.findInstance('new')
+    dialogue.find('.dialogue-content').html $($('#dialogs-widgetForm').html())
+    dialogue.css top: "#{(document.height-dialogue.height())/2}px", left: "#{(document.width - dialogue.width())/2}px"
     
-    $('.htmlContent textarea').text '<div class="value">⌛</div>'
-    $('.cssContent textarea').text '.value {\n\tpadding-top: 1em;\n\tfont-size: 8em;\n\tfont-weight: bold;\n\ttext-shadow: 1px 1px 1px black;\n\ttext-align: center;\n\tpadding-top: 0.5em;\n\tcolor: white;\n}'
-    $('.coffeeContent textarea').text '# All of your html is scoped to $("#widget_"+data.id)\n$("#widget_"+data.id).find(".value").text(data.value)'
-    $('.jsonContent textarea').text '{value: 0.24}'
+    $('.htmlContent textarea').val '<div class="value">⌛</div>'
+    $('.cssContent textarea').val '.value {\n\tpadding-top: 1em;\n\tfont-size: 8em;\n\tfont-weight: bold;\n\ttext-shadow: 1px 1px 1px black;\n\ttext-align: center;\n\tpadding-top: 0.5em;\n\tcolor: white;\n}'
+    $('.coffeeContent textarea').val '# All of your html is scoped to $("#widget_"+data.id)\n$("#widget_"+data.id).find(".value").text(data.value)'
+    $('.jsonContent textarea').val '{value: 0.24}'
+    
+    renderLivePreview()
     
     $('form#widget input[name="title"]').live 'keyup', ->
           $('.demoContent').find('.title').text $('form#widget').find('input[name="title"]').val()    
@@ -58,17 +63,7 @@ exports.init = ->
           $(@).addClass('active')
           id = $(@).attr('id')
           $('.'+id+'Content').addClass('active')
-          if id is 'demo'
-            window.data = {id:'preview'}
-            html = $('.widget.template').clone().removeClass('template').attr('id','widget_preview').show()
-            html.find('.title').text $('form#widget').find('input[name="title"]').val()
-            html.find('.content').html $('.htmlContent textarea').val()
-            $('.demoContent').html html
-            $('#cssHolder').html $('.cssContent textarea').val()
-            window.dataToMerge = eval("obj = #{$('.jsonContent textarea').val()}")
-            data[key] = value for key,value of dataToMerge 
-            CoffeeScript.run $('.coffeeContent textarea').val()
-        
+          renderLivePreview() if id is 'demo'
     
     $('form#widget').submit ->
       data = {title: $(@).find('input[name="title"]').val(), html: $('.htmlContent textarea').val(), css: $('.cssContent textarea').val(), coffee: $('.coffeeContent textarea').val(), json: $('.jsonContent textarea').val()}
@@ -87,7 +82,10 @@ exports.init = ->
           urlToPing = document.location.href + "api/app/simulate?id=#{data._id}#{string.join()}"
           dialogueTemplate.remove 'new'
           dialogueTemplate.add {id: 'new', 'dialogue-title': 'Test your new Widget'}
-          dialogueTemplate.findInstance('new').find('.dialogue-content').html "<p>Ping this url to send data to your widget:</p><code><a href='#{urlToPing}' target='_blank'>#{urlToPing}</a></code>"          
+          dialogue = dialogueTemplate.findInstance('new')
+          dialogue.find('.dialogue-content').html "<p>Ping this url to send data to your widget:</p><code><a href='#{urlToPing}' target='_blank'>#{urlToPing}</a></code>"
+          dialogue.css top: "#{(document.height-dialogue.height())/2}px", left: "#{(document.width - dialogue.width())/2}px"
+                    
       false
 
   # Change text color based on value
@@ -128,6 +126,15 @@ exports.init = ->
     #id = $(@).parent().parent().attr('id').split('_')[1]
     #$('body').append("<div id='overlay'><div id='dialog'>"+$('form#Widget').clone()+"</div></div>")
     
-  
+  renderLivePreview = ->
+    window.data = {id:'preview'}
+    html = $('.widget.template').clone().removeClass('template').attr('id','widget_preview').show()
+    html.find('.title').text $('form#widget').find('input[name="title"]').val()
+    html.find('.content').html $('.htmlContent textarea').val()
+    $('.demoContent').html html
+    $('#cssHolder').html $('.cssContent textarea').val()
+    window.dataToMerge = eval("obj = #{$('.jsonContent textarea').val()}")
+    data[key] = value for key,value of dataToMerge 
+    CoffeeScript.run $('.coffeeContent textarea').val()
       
   

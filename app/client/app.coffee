@@ -70,19 +70,12 @@ exports.init = ->
         if res is false
           alert "Balls. Mongo doesn't like it :("
         else
-          
           data._id = res._id
           new widgetModel(data).save()
-          
-          string = []
-          for key,value of eval("obj = #{data.json}")
-            string.push "&#{key}=#{value}"
-                
-          urlToPing = document.location.href + "api/app/transmit?id=#{data._id}#{string.join()}"
           dialogueTemplate.remove 'new'
           dialogueTemplate.add {id: 'new', 'dialogue-title': 'Test your new Widget'}
-          dialogue = dialogueTemplate.findInstance('new')
-          dialogue.find('.dialogue-content').html "<p>Ping this url to send data to your widget:</p><code><a href='#{urlToPing}' target='_blank'>#{urlToPing}</a></code>"
+          dialogue = dialogueTemplate.findInstance('new')          
+          dialogue.find('.dialogue-content').html "<p>Ping this url to send data to your widget:</p><code><a href='#{buildApiUrl(data)}' target='_blank'>#{buildApiUrl(data)}</a></code>"
           dialogue.css top: "#{(document.height-dialogue.height())/2}px", left: "#{(document.width - dialogue.width())/2}px"
                     
       false
@@ -130,6 +123,7 @@ exports.init = ->
     dialogueTemplate.add {id: id, 'dialogue-title': "Edit Widget: #{widget.attributes.title}"}
     dialogue = dialogueTemplate.findInstance(id)
     dialogue.find('.dialogue-content').html $($('#dialogs-widgetForm').html())
+    dialogue.find('.dialogue-content #theBoringBit').prepend "<div class='apiUrl'><b>API URL:</b> <a href='#{buildApiUrl(widget.attributes)}' target='_blank'>#{buildApiUrl(widget.attributes)}</a></div>"
     dialogue.css top: "#{(document.height-dialogue.height())/2}px", left: "#{(document.width - dialogue.width())/2}px"
     
     $('form#widget input[type="submit"]').val 'Save'
@@ -168,7 +162,6 @@ exports.init = ->
           widget.bindWidgetHtmlAndCss()
       false
 
-    
   renderLivePreview = ->
     window.data = {id:'preview'}
     html = $('.widget.template').clone().removeClass('template').attr('id','widget_preview').show()
@@ -179,3 +172,8 @@ exports.init = ->
     window.dataToMerge = eval("obj = #{$('.jsonContent textarea').val()}")
     data[key] = value for key,value of dataToMerge 
     CoffeeScript.run $('.coffeeContent textarea').val()
+    
+  buildApiUrl = (data) ->
+    string = []
+    string.push "&#{key}=#{value}" for key,value of eval("obj = #{data.json}")
+    "#{document.location.href}api/app/transmit?id=#{data._id}#{string.join()}"

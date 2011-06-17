@@ -17,8 +17,10 @@ TODO LIST
 ✔ Click the close button on a dialogue widget to make it disappear
 ✔ dialogues should be draggable
 
+✔ Edit an existing Widget
+
 ✖ Namespace JSON data based on id
+✖ Check API for nested JSON
 ✖ Save Widget positions
-✖ Edit an existing Widget
 ✖ Monitoring Option (if no data received after a certain interval)
 ✖ Widget Templates (charts, numbers, graphs)

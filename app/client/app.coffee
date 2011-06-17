@@ -4,8 +4,7 @@ exports.init = ->
 
   $('#overlay').live 'click', ->
     $('.dialogue').remove()
-    $(@).remove()
-    
+    $(@).remove()    
 
   window.widgetModel = new Model 'Widget', ->
     @unique_key = "_id"
@@ -21,10 +20,9 @@ exports.init = ->
         
   widgetModel.bind "add", (newObject) ->
     widgetTemplate.add newObject.attributes
-    newObject.bindWidgetHtmlAndCss()  
+    newObject.bindWidgetHtmlAndCss()
 
-  widgetModel.bind "remove", (removedObject) ->
-    widgetTemplate.remove removedObject.attributes._id
+  widgetModel.bind "remove", (removedObject) -> widgetTemplate.remove removedObject.attributes._id    
     
   window.widgetTemplate   = new SmartTemplate 'widget', bindDataToCssClasses: true
   window.dialogueTemplate = new SmartTemplate 'dialogue', templateHtml: $($("#dialogs-dialog").html()),  bindDataToCssClasses: true, appendTo: $('body'), afterAdd: (object) ->
@@ -56,14 +54,15 @@ exports.init = ->
     renderLivePreview()
     
     $('form#widget input[name="title"]').live 'keyup', ->
-          $('.demoContent').find('.title').text $('form#widget').find('input[name="title"]').val()    
-        $('.tab').click ->
-          $('.tab').removeClass('active')
-          $('.tabContent').removeClass('active')
-          $(@).addClass('active')
-          id = $(@).attr('id')
-          $('.'+id+'Content').addClass('active')
-          renderLivePreview() if id is 'demo'
+        $('.demoContent').find('.title').text $('form#widget').find('input[name="title"]').val()    
+
+    $('.tab').click ->
+      $('.tab').removeClass('active')
+      $('.tabContent').removeClass('active')
+      $(@).addClass('active')
+      id = $(@).attr('id')
+      $('.'+id+'Content').addClass('active')
+      renderLivePreview() if id is 'demo'
     
     $('form#widget').submit ->
       data = {title: $(@).find('input[name="title"]').val(), html: $('.htmlContent textarea').val(), css: $('.cssContent textarea').val(), coffee: $('.coffeeContent textarea').val(), json: $('.jsonContent textarea').val()}
@@ -79,7 +78,7 @@ exports.init = ->
           for key,value of eval("obj = #{data.json}")
             string.push "&#{key}=#{value}"
                 
-          urlToPing = document.location.href + "api/app/simulate?id=#{data._id}#{string.join()}"
+          urlToPing = document.location.href + "api/app/transmit?id=#{data._id}#{string.join()}"
           dialogueTemplate.remove 'new'
           dialogueTemplate.add {id: 'new', 'dialogue-title': 'Test your new Widget'}
           dialogue = dialogueTemplate.findInstance('new')
@@ -122,9 +121,53 @@ exports.init = ->
       
   # Shows the configure widget dialog
   $('.config').live 'click', ->
-    alert "Paul, build this pronto!"
-    #id = $(@).parent().parent().attr('id').split('_')[1]
-    #$('body').append("<div id='overlay'><div id='dialog'>"+$('form#Widget').clone()+"</div></div>")
+  
+    $('body').append("<div id='overlay'></div>")
+    $('#overlay').hide().fadeIn()
+  
+    id = $(@).parent().parent().attr('id').split('_')[1]
+    widget = widgetModel.find(id)
+    dialogueTemplate.add {id: id, 'dialogue-title': "Edit Widget: #{widget.attributes.title}"}
+    dialogue = dialogueTemplate.findInstance(id)
+    dialogue.find('.dialogue-content').html $($('#dialogs-widgetForm').html())
+    dialogue.css top: "#{(document.height-dialogue.height())/2}px", left: "#{(document.width - dialogue.width())/2}px"
+    
+    $('form#widget input[type="submit"]').val 'Save'
+    
+    $('.htmlContent textarea').val widget.attributes.html
+    $('.cssContent textarea').val widget.attributes.css
+    $('.coffeeContent textarea').val widget.attributes.coffee
+    $('.jsonContent textarea').val widget.attributes.json
+    $('form#widget').find('input[name="title"]').val widget.attributes.title   
+    
+    renderLivePreview()
+
+    $('form#widget input[name="title"]').live 'keyup', ->
+        $('.demoContent').find('.title').text $('form#widget').find('input[name="title"]').val()    
+
+    $('.tab').click ->
+      $('.tab').removeClass('active')
+      $('.tabContent').removeClass('active')
+      $(@).addClass('active')
+      id = $(@).attr('id')
+      $('.'+id+'Content').addClass('active')
+      renderLivePreview() if id is 'demo'
+
+    # form submit
+    $('form#widget').submit ->
+      data = {_id: widget.id(), title: $(@).find('input[name="title"]').val(), html: $('.htmlContent textarea').val(), css: $('.cssContent textarea').val(), coffee: $('.coffeeContent textarea').val(), json: $('.jsonContent textarea').val()}
+      SS.server.app.updateWidget data, (res) ->        
+        if res is false
+          alert "Balls. Mongo doesn't like it :("
+        else
+          dialogueTemplate.remove widget.id()          
+          $('#overlay').remove()
+          widget.attr(key,value) for key,value of res
+          widget.save()
+          widgetTemplate.update widgetModel.find(widget.id()).attributes
+          widget.bindWidgetHtmlAndCss()
+      false
+
     
   renderLivePreview = ->
     window.data = {id:'preview'}
@@ -136,5 +179,3 @@ exports.init = ->
     window.dataToMerge = eval("obj = #{$('.jsonContent textarea').val()}")
     data[key] = value for key,value of dataToMerge 
     CoffeeScript.run $('.coffeeContent textarea').val()
-      
-  

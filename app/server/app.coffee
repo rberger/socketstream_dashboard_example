@@ -2,27 +2,26 @@
 
 exports.actions =
       
-  # Simulates hitting the API to influence a particular widget
-  simulate: (data, cb) ->
+  transmit: (data, cb) ->
     SS.publish.broadcast 'widgetUpdate', data
     cb data
     
-  # insert widget into the mongo widgets collection
-  # callback with the id referring to the widget
   createWidget: (data, cb) ->
     widget = new Widget data
     widget.save (err,doc) -> cb if !err then doc else false
   
-  # Get all of the widgets in the DB
   getWidgets: (cb) ->
     Widget.find {}, {}, {}, (err, docs) -> cb docs.map (d) -> d.doc
     
-  # Update a widget  
   updateWidget: (data, cb) ->
-    Widget.update {_id: data._id}, data, {}, (err, doc) ->
-      cb if !err then doc else false
-    
-  # Remove a widget
+    Widget.findById data._id, (err, doc) ->
+      if !doc
+        cb false
+      else 
+        for key,value of data
+          doc[key] = value unless key is '_id'
+        doc.save (err) -> cb if !err then doc else false
+          
   deleteWidget: (id, cb) ->
     Widget.findById id, (err, doc) ->
       doc.remove (err) ->

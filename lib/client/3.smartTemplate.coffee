@@ -88,15 +88,15 @@ class window.SmartTemplate
     instance = @findInstance id, true
     @options.beforeRemove instance if @options.hasOwnProperty('beforeRemove')
     instance.remove()
-    @options.afterRemove instance if @options.hasOwnProperty('afterRemove')    
+    @options.afterRemove instance if @options.hasOwnProperty('afterRemove')   
 
   update: (data) ->
-    instance = @findInstance data.id, true
+    instance = @findInstance (data.id || data._id), true
     @options.beforeUpdate instance if @options.hasOwnProperty('beforeUpdate')
     instance.html @addItem(data, true).html()
     @options.afterUpdate obj if @options.hasOwnProperty('afterUpdate')
 
-  clear: -> 
+  clear: ->
     for instance in @findWithOrWithoutContainer('.'+@name, true)
       $(instance).remove() unless $(instance).hasClass('template')
 

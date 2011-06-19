@@ -71,7 +71,6 @@ exports.init = ->
           alert "Balls. Mongo doesn't like it :("
         else
           data._id = res._id
-          new widgetModel(data).save()
           dialogueTemplate.remove 'new'
           dialogueTemplate.add {id: 'new', 'dialogue-title': 'Test your new Widget'}
           dialogue = dialogueTemplate.findInstance('new')          
@@ -89,8 +88,18 @@ exports.init = ->
   # 
   $('#widgets').sortable(handle: '.title')
   
-  SS.events.on 'widgetUpdate', (data) ->
-    widgetModel.find(data.id).executeCoffee data
+  SS.events.on 'transmission', (data) -> widgetModel.find(data.id).executeCoffee data
+
+  SS.events.on 'addWidget', (data) -> new widgetModel(data).save()
+  
+  SS.events.on 'removeWidget', (id) -> widgetModel.find(id).destroy()
+
+  SS.events.on 'updateWidget', (data) ->
+    widget = widgetModel.find(data._id)
+    widget.attr(key,value) for key,value of data
+    widget.save()
+    widgetTemplate.update widgetModel.find(widget.id()).attributes
+    widget.bindWidgetHtmlAndCss()
   
   SS.socket.on 'disconnect', ->
     $('#message').text('SocketStream server has gone down :-(')
@@ -107,10 +116,10 @@ exports.init = ->
   # Deletes the widget
   $('.delete').live 'click', ->
     stopOwen = confirm("Do you want to delete this widget?")
-    if stopOwen is true
+    if stopOwen is true # Owen clicked on a delete button once, made me where the hell my beautifully-crafted widget went.
       id = $(@).parent().parent().attr('id').split('_')[1]
       SS.server.app.deleteWidget id, (res) ->
-        if res is true then widgetModel.find(id).destroy() else alert "There was an error deleting the widget"
+        if res isnt true then alert "There was an error deleting the widget"
       
   # Shows the configure widget dialog
   $('.config').live 'click', ->
@@ -155,10 +164,6 @@ exports.init = ->
         else
           dialogueTemplate.remove widget.id()          
           $('#overlay').remove()
-          widget.attr(key,value) for key,value of res
-          widget.save()
-          widgetTemplate.update widgetModel.find(widget.id()).attributes
-          widget.bindWidgetHtmlAndCss()
       false
 
   renderLivePreview = ->

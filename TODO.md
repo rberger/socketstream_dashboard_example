@@ -19,8 +19,16 @@ TODO LIST
 
 ✔ Edit an existing Widget
 
-✖ Namespace JSON data based on id
-✖ Check API for nested JSON
+✖ RTM
+✖ Fade out removal
+
+
 ✖ Save Widget positions
 ✖ Monitoring Option (if no data received after a certain interval)
 ✖ Widget Templates (charts, numbers, graphs)
+✖ Namespace JSON data based on id
+
+IN THE FUTURE
+---
+
+✖ Check API for nested JSON

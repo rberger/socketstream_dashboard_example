@@ -11,5 +11,6 @@ global.Widgets = new Schema
   html   : String
   css    : String
   coffee : String
+  json   : String
   
 global.Widget = mongoose.model 'Widget', Widgets  

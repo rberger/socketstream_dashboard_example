@@ -149,8 +149,7 @@ exports.init = ->
 
     # form submit
     $('form#widget').submit ->
-      data = {_id: widget.id(), title: $(@).find('input[name="title"]').val(), html: $('.htmlContent textarea').val(), css: $('.cssContent textarea').val(), coffee: $('.coffeeContent textarea').val(), json: $('.jsonContent textarea').val()}
-      SS.server.app.updateWidget data, (res) ->        
+      SS.server.app.updateWidget {_id: widget.id(), title: $(@).find('input[name="title"]').val(), html: $('.htmlContent textarea').val(), css: $('.cssContent textarea').val(), coffee: $('.coffeeContent textarea').val(), json: $(@).find('.jsonContent textarea').val()}, (res) ->        
         if res is false
           alert "Balls. Mongo doesn't like it :("
         else

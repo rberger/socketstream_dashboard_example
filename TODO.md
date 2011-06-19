@@ -19,7 +19,7 @@ TODO LIST
 
 ✔ Edit an existing Widget
 
-✖ RTM
+✔ RTM
 ✖ Fade out removal
 
 

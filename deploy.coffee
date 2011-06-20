@@ -3,7 +3,7 @@ task    = control.task
 
 task 'myserver', 'config got my server', ->
   config = user: 'root'
-  addresses = ['178.79.179.71']
+  addresses = ['ssdashboard.com']
   return control.hosts(config, addresses)
   
 task 'deploy', 'deploy the latest version of the app', (host) ->

@@ -22,7 +22,8 @@ exports.init = ->
     widgetTemplate.add newObject.attributes
     newObject.bindWidgetHtmlAndCss()
 
-  widgetModel.bind "remove", (removedObject) -> widgetTemplate.remove removedObject.attributes._id    
+  widgetModel.bind "remove", (removedObject) -> 
+    widgetTemplate.findInstance(removedObject.attributes._id).animate {opacity: 0}, 1000, -> widgetTemplate.remove removedObject.attributes._id    
     
   window.widgetTemplate   = new SmartTemplate 'widget', bindDataToCssClasses: true
   window.dialogueTemplate = new SmartTemplate 'dialogue', templateHtml: $($("#dialogs-dialog").html()),  bindDataToCssClasses: true, appendTo: $('body'), afterAdd: (object) ->

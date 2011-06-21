@@ -1,3 +1,4 @@
 {
-  "port": 443, "ssl": {"enabled": true}
+  "port": 443,
+  "ssl": {"enabled":true}
 }

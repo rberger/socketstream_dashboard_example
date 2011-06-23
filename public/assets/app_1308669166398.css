@@ -1,0 +1,41 @@
+@font-face{font-family:"Droid Sans Mono";font-style:normal;font-weight:400;src:local("Droid Sans Mono"),local("Droid-Sans-Mono"),url("/fonts/Droid_Sans_Mono/DroidSansMono.ttf") format("truetype")}
+body,html{width:100%;font-size:62.5%;background-color:#111;background-image:url("/images/ios-linen.jpg");background-repeat:repeat;color:rgba(255,255,255,0.5);font-family:"Helvetica","Arial"}
+#wrapper{margin:1em}
+#menu{font-size:12pt;float:left;margin:.5em}
+#widgets{clear:both;float:left}
+#logo{text-transform:uppercase;padding:1px 15px 0 0;font-size:20pt;float:left;font-weight:bold;text-shadow:1px 1px 1px rgba(0,0,0,0.5);color:#fff}
+#newWidget{font-weight:bold;text-shadow:1px 1px 1px rgba(0,0,0,0.5);color:#fff;cursor:pointer;background:#669224;background-color:#628d21;background-image:-webkit-gradient(linear,left top,left bottom,from(#7acc00),to(#628d21));background-image:-moz-linear-gradient(top,#7acc00,#628d21);padding:4px 8px;-webkit-border-radius:20px;-moz-border-radius:20px;border-radius:20px;float:left;border:solid 2px #fff;-webkit-box-shadow:0 0 2px 2px rgba(0,0,0,0.3);-moz-box-shadow:0 0 2px 2px rgba(0,0,0,0.3);box-shadow:0 0 2px 2px rgba(0,0,0,0.3)}
+.widget{float:left;background:rgba(0,0,0,0.5);-webkit-box-shadow:inset 0 3px 14px 1px rgba(0,0,0,0.45);-moz-box-shadow:inset 0 3px 14px 1px rgba(0,0,0,0.45);box-shadow:inset 0 3px 14px 1px rgba(0,0,0,0.45);width:22em;margin:1em;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;}
+.widget .heading{position:relative;}
+.widget .heading .title{color:#fff;font-weight:bold;text-shadow:1px 1px 1px #000;padding:1em;font-size:10pt;cursor:move;text-align:center}
+.widget .heading .button{opacity:0;-moz-opacity:0;-webkit-transition:opacity .3s linear}
+.widget .heading .config{opacity:0;-moz-opacity:0;position:absolute;top:8px;left:19px;width:10px;height:10px;-webkit-border-radius:15px;-moz-border-radius:15px;border-radius:15px;background:#e9961a;background-color:#e9961a;background-image:-webkit-gradient(linear,left top,left bottom,from(#e8c61a),to(#e9961a));background-image:-moz-linear-gradient(top,#e8c61a,#e9961a);cursor:pointer}
+.widget .heading .delete{opacity:0;-moz-opacity:0;position:absolute;top:8px;left:7px;width:10px;height:10px;-webkit-border-radius:15px;-moz-border-radius:15px;border-radius:15px;background:#a20000;background-color:#a20000;background-image:-webkit-gradient(linear,left top,left bottom,from(#f00),to(#a20000));background-image:-moz-linear-gradient(top,#f00,#a20000);cursor:pointer}
+.widget .heading:hover .button{opacity:1;-moz-opacity:1}
+.widget .content{min-height:15em;text-align:center}
+#tabs{margin:2em;text-align:center;}
+#tabs .tab{padding:5px;font-size:12pt;border-left:solid 1px #555;border-right:solid 1px #555;background:#eee;cursor:pointer;background-color:#555;background-image:-webkit-gradient(linear,left top,left bottom,from(#888),to(#555));background-image:-moz-linear-gradient(top,#888,#555);color:#fff;text-shadow:1px 1px 1px rgba(0,0,0,0.5);display:inline;font-weight:bold;-webkit-box-shadow:3px 3px 5px rgba(0,0,0,0.5);-moz-box-shadow:3px 3px 5px rgba(0,0,0,0.5);box-shadow:3px 3px 5px rgba(0,0,0,0.5)}
+#tabs .tab:first-child{border-top-left-radius:5px;-moz-border-radius-topleft:5px;border-bottom-left-radius:5px;-moz-border-radius-bottomleft:5px;border-left:none;padding-left:10px}
+#tabs .tab:last-child{border-top-right-radius:5px;-moz-border-radius-topright:5px;border-bottom-right-radius:5px;-moz-border-radius-bottomright:5px;border-right:none;padding-right:10px}
+#tabs .tab:hover{background:#3e4a70;background-color:#222;background-image:-webkit-gradient(linear,left top,left bottom,from(#555),to(#222));background-image:-moz-linear-gradient(top,#555,#222)}
+#tabs .tab.active{background:#3e4a70;background-color:#222;background-image:-webkit-gradient(linear,left top,left bottom,from(#555),to(#222));background-image:-moz-linear-gradient(top,#555,#222)}
+#tabContents{clear:both;float:left;width:70em;margin:0 0 2em 5em;height:30em;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px}
+.tabContent{display:none}
+.tabContent.active{display:block}
+textarea.ide{float:left;font-family:"Droid Sans Mono";font-size:10pt;width:97%;background:rgba(0,0,0,0.8);color:#e4f7ba;-moz-box-shadow:inset 3px 3px 5px rgba(0,0,0,0.5);-webkit-box-shadow:inset 3px 3px 5px rgba(0,0,0,0.5);-webkit-box-shadow:inset 3px 3px 5px rgba(0,0,0,0.5);-moz-box-shadow:inset 3px 3px 5px rgba(0,0,0,0.5);box-shadow:inset 3px 3px 5px rgba(0,0,0,0.5);border:none;padding:1em;height:18em;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;-webkit-border-top-left-radius:0;-moz-border-radius-topleft:0;border-top-left-radius:0}
+#overlay{position:absolute;background:rgba(0,0,0,0.4);top:0;left:0;right:0;bottom:0;width:100%;height:100%}
+.dialogue{width:80em;margin:0 auto;position:absolute;z-index:2;}
+.dialogue .dialogue-heading{float:left;width:100%;background:#222;background-color:#222;background-image:-webkit-gradient(linear,left top,left bottom,from(#444),to(#222));background-image:-moz-linear-gradient(top,#444,#222);border-top-left-radius:10px;-moz-border-radius-topleft:10px;border-top-right-radius:10px;-moz-border-radius-topright:10px;cursor:move;}
+.dialogue .dialogue-heading .dialogue-title{font-size:12pt;float:left;left:10px;color:#fff;text-shadow:1px 1px 1px #000;padding:1em;font-weight:bold}
+.dialogue .dialogue-heading .dialogue-close{text-align:center;padding:6px 8px 5px 7px;background:#a00;background-color:#a00;background-image:-webkit-gradient(linear,left top,left bottom,from(#f00),to(#a00));background-image:-moz-linear-gradient(top,#f00,#a00);font-size:12pt;float:right;margin-top:10px;margin-right:10px;color:#fff;-webkit-border-radius:15px;-moz-border-radius:15px;border-radius:15px;text-shadow:1px 1px 1px #000;border:solid 2px #fff;cursor:pointer;-webkit-box-shadow:0 1px 2px 2px rgba(0,0,0,0.3);-moz-box-shadow:0 1px 2px 2px rgba(0,0,0,0.3);box-shadow:0 1px 2px 2px rgba(0,0,0,0.3)}
+.dialogue .dialogue-content{background:#fff;float:left;clear:left;width:100%;border-bottom-left-radius:10px;-moz-border-radius-bottomleft:10px;border-bottom-right-radius:10px;-moz-border-radius-bottomright:10px;}
+.dialogue .dialogue-content p{text-align:center;color:#333;float:left;padding:1em;font-size:12pt}
+.dialogue .dialogue-content a{text-align:center;padding:1em;font-size:12pt;float:left;color:#6d9741}
+#theBoringBit{float:left;padding:1em;width:98%;}
+#theBoringBit input[type="text"]{float:left;font-size:12pt;padding:5px}
+#theBoringBit input[type="submit"]{float:right;font-size:14pt;padding:5px;border:none;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;color:#fff;cursor:pointer;background:#669224;background-color:#628d21;background-image:-webkit-gradient(linear,left top,left bottom,from(#7acc00),to(#628d21));background-image:-moz-linear-gradient(top,#7acc00,#628d21)}
+#theCoolBit{float:left;clear:left}
+#widget_preview{background:url("/images/bg-trans.png"),url("/images/ios-linen.jpg");background-repeat:repeat,repeat}
+.dialogue .dialogue-content .apiUrl{text-align:center;color:#333;font-size:10pt;float:left;background-color:#ddd;background-image:-webkit-gradient(linear,left top,left bottom,from(#fff),to(#ddd));background-image:-moz-linear-gradient(top,#fff,#ddd);width:95.5%;padding:2%;margin:5px 0 15px;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;border:solid 1px #ccc;}
+.dialogue .dialogue-content .apiUrl b{font-weight:bold;padding-right:10px}
+.dialogue .dialogue-content .apiUrl a{float:none;padding:0;font-size:10pt}

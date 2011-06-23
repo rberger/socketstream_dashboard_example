@@ -181,4 +181,4 @@ exports.init = ->
   buildApiUrl = (data) ->
     string = []
     string.push "&#{key}=#{value}" for key,value of eval("obj = #{data.json}")
-    "#{document.location.href}api/app/transmit?id=#{data._id}#{string.join()}"
+    "#{document.location.href}api/app/transmit?id=#{data._id}#{string.join('')}"

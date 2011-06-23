@@ -69,7 +69,7 @@ exports.init = ->
       data = {title: $(@).find('input[name="title"]').val(), html: $('.htmlContent textarea').val(), css: $('.cssContent textarea').val(), coffee: $('.coffeeContent textarea').val(), json: $('.jsonContent textarea').val()}
       SS.server.app.createWidget data, (res) ->
         if res is false
-          alert "Balls. Mongo doesn't like it :("
+          alert "This feature is disabled for the demo site. Checkout the git repo on github and go nuts!"
         else
           data._id = res._id
           dialogueTemplate.remove 'new'
@@ -120,7 +120,8 @@ exports.init = ->
     if stopOwen is true # Owen clicked on a delete button once, made me where the hell my beautifully-crafted widget went.
       id = $(@).parent().parent().attr('id').split('_')[1]
       SS.server.app.deleteWidget id, (res) ->
-        if res isnt true then alert "There was an error deleting the widget"
+        if res isnt true then alert "This feature is disabled for the demo site. Checkout the git repo on github and go nuts!"
+        
       
   # Shows the configure widget dialog
   $('.config').live 'click', ->
@@ -161,7 +162,7 @@ exports.init = ->
     $('form#widget').submit ->
       SS.server.app.updateWidget {_id: widget.id(), title: $(@).find('input[name="title"]').val(), html: $('.htmlContent textarea').val(), css: $('.cssContent textarea').val(), coffee: $('.coffeeContent textarea').val(), json: $(@).find('.jsonContent textarea').val()}, (res) ->        
         if res is false
-          alert "Balls. Mongo doesn't like it :("
+          alert "This feature is disabled for the demo site. Checkout the git repo on github and go nuts!"
         else
           dialogueTemplate.remove widget.id()          
           $('#overlay').remove()

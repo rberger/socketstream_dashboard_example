@@ -4,6 +4,7 @@
   "version":      "0.0.1",
   "author":       "Paul Jensen <paulbjensen@gmail.com>",
   "dependencies": {
+    "mongodb":  ">= 0.9.3",
     "mongoose":  ">= 1.3.3",
     "control":  ">= 0.1.7"
   },
